@@ -1,0 +1,16 @@
+[package]
+name = "test_"
+version = "0.1.0"
+authors = ["Parodix007 <sebastian.siarczynski@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cortex-m = "*"
+panic-halt = "*"
+cortex-m-rt = "*"
+
+[dependencies.f3]
+features = ["rt"]
+version = "*"
