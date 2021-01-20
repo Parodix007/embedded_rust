@@ -10,7 +10,6 @@ edition = "2018"
 cortex-m = "*"
 panic-halt = "*"
 cortex-m-rt = "*"
-stm32f3-discovery = "*"
 
 [dependencies.f3]
 features = ["rt"]
