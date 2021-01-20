@@ -30,9 +30,12 @@ fn main() -> ! {
 
     loop {
     	for i in 0..leds.iter().len() {
-    		leds[i].on(); // turn led on
-    		delay.delay_ms(1000_u32); // create a delay of 1000 ms
-    		leds[i].off(); // turn led off 
+    		if i % 2 == 0 {
+    			leds[i].on();
+    			delay.delay_ms(300u32);
+    			leds[i].off();
+    		} 
     	}
+    	
     }
 }
