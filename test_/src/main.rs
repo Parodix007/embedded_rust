@@ -28,14 +28,41 @@ fn main() -> ! {
     let mut leds = Leds::new(stm.GPIOE.split(&mut rcc.ahb)); // use RCC as parametr for all the require pins
     let mut delay = Delay::new(cortex.SYST, time); // creating new dealy obj
 
+    let mut seq_even = 0;
+    let mut seq_odd = 0;
+    let _delay: u32 = 200;
     loop {
+
     	for i in 0..leds.iter().len() {
-    		if i % 2 == 0 {
-    			leds[i].on();
-    			delay.delay_ms(300u32);
-    			leds[i].off();
-    		} 
+            if seq_even > 5 {
+                if i % 2 != 0 {
+                    leds[i].on();
+                    delay.delay_ms(_delay);                }
+            } else {
+                if i % 2 == 0 {
+        			leds[i].on();
+        			delay.delay_ms(_delay);
+                }
+    		}
     	}
+
+        delay.delay_ms(300u32);
+
+        for i in 0..leds.iter().len() {
+            delay.delay_ms(_delay);
+            leds[i].off();
+        }
+
+        if seq_even <= 5 {
+            seq_even+=1;
+        }else {
+            if seq_odd <= 5 {
+                seq_odd+=1;
+            } else {
+                seq_even = 0;
+                seq_odd = 0;
+            }
+        }
     	
     }
 }
