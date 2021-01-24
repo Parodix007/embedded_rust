@@ -6,7 +6,7 @@ use cortex_m_rt::entry; // require to start write any code at all
 use f3::{hal::prelude::*, 
 		led::Leds,
 		}; // require to compile code for stm32f3
-use f3::hal::{prelude::*, delay::Delay, stm32f30x::{self, GPIOE} /* For use safe way to turn on/off leds based on the address of peripheral*/, }; // require to deal with stuff of stm32f3 board
+use f3::hal::{prelude::*, delay::Delay, stm32f30x::{self, GPIOE} /* For use safe way to turn on/off leds based on the address of peripheral*/ }; // require to deal with stuff of stm32f3 board
 
 #[entry]
 fn main() -> ! {
@@ -25,7 +25,8 @@ fn main() -> ! {
 
     let time = rcc.cfgr.freeze(&mut flash.acr); // for dealing with errors that may ocure; cfgr -> Clock configuration register; idk what is freeze to catch time when error ocur maybe 
 
-    let mut leds = Leds::new(stm.GPIOE.split(&mut rcc.ahb)); // use RCC as parametr for all the require pins
+    //let mut leds = 
+    Leds::new(stm.GPIOE.split(&mut rcc.ahb)); // use RCC as parametr for all the require pins and create a new Leds instance
     let mut delay = Delay::new(cortex.SYST, time); // creating new dealy obj
 
     let mut seq_even = 0;
