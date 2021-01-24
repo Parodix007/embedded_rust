@@ -6,7 +6,7 @@ use cortex_m_rt::entry; // require to start write any code at all
 use f3::{hal::prelude::*, 
 		led::Leds,
 		}; // require to compile code for stm32f3
-use f3::hal::{prelude::*, stm32f30x, delay::Delay }; // require to deal with stuff of stm32f3 board
+use f3::hal::{prelude::*, delay::Delay, stm32f30x::{self, GPIOE} /* For use safe way to turn on/off leds based on the address of peripheral*/, }; // require to deal with stuff of stm32f3 board
 
 #[entry]
 fn main() -> ! {
@@ -33,15 +33,20 @@ fn main() -> ! {
     let _delay: u32 = 200;
 
       unsafe {
-        const GPIOE_BSRR: u32 = 0x48001018;
+        const GPIOE_BSRR: u32 = 0x48001018; // it`s address based on the bsrr address of board 
 
-        *(GPIOE_BSRR as *mut u32) = 1 << 9; // on led
-        *(GPIOE_BSRR as *mut u32) = 1 << 11; // on led
-        *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16); // off led
-        *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16); // off led
+        *(GPIOE_BSRR as *mut u32) = 1 << 9; // turn on led
+        *(GPIOE_BSRR as *mut u32) = 1 << 11; // turn on led
+        *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16); // turn off led
+        *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16); // turn off led
             
     }
-    
+
+    let gpioe = unsafe { &*GPIOE::ptr() };
+
+    gpioe.bsrr.write(|w| w.bs10().set_bit()); // set led on by send require bit to power it
+    gpioe.bsrr.write(|w| w.bs12().set_bit()); 
+    gpioe.bsrr.write(|w| w.br10().set_bit()); // set led off by send require bit to turn it off
     loop {
         // for i in 0..leds.iter().len() {
      //        if seq_even > 5 {
