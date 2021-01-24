@@ -1,5 +1,5 @@
-# emdedded_rust
-This repo contains a material from rust embedded books. 
+# Rust for embedded
+This repo contains code of basic rust embedded programs. 
 
 ## Enviroment 
 * STM32F3DISCOVERY board
