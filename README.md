@@ -1,14 +1,14 @@
 # emdedded_rust
 This repo contains a material from rust embedded books. 
 
-#Enviroment 
+## Enviroment 
 * STM32F3DISCOVERY board
 * Rust with:
 	- openOCD
 	- `arm-none-eabi-gdb`
 	- cargo-binutils
 
-#Handy commands
+## Handy commands
 * In the project direcotry: `cargo build --target thumbv7em-none-eabihf`
 * In the /tmp directory: `openocd \
   -f interface/stlink-v2-1.cfg \
