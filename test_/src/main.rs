@@ -31,38 +31,49 @@ fn main() -> ! {
     let mut seq_even = 0;
     let mut seq_odd = 0;
     let _delay: u32 = 200;
+
+      unsafe {
+        const GPIOE_BSRR: u32 = 0x48001018;
+
+        *(GPIOE_BSRR as *mut u32) = 1 << 9; // on led
+        *(GPIOE_BSRR as *mut u32) = 1 << 11; // on led
+        *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16); // off led
+        *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16); // off led
+            
+    }
+    
     loop {
+        // for i in 0..leds.iter().len() {
+     //        if seq_even > 5 {
+     //            if i % 2 != 0 {
+     //                leds[i].on();
+     //                delay.delay_ms(_delay);
+     //            }
+     //        } else {
+     //            if i % 2 == 0 {
+     //    			leds[i].on();
+     //    			delay.delay_ms(_delay);
+     //            }
+    	// 	}
+    	// }
 
-    	for i in 0..leds.iter().len() {
-            if seq_even > 5 {
-                if i % 2 != 0 {
-                    leds[i].on();
-                    delay.delay_ms(_delay);                }
-            } else {
-                if i % 2 == 0 {
-        			leds[i].on();
-        			delay.delay_ms(_delay);
-                }
-    		}
-    	}
+     //    delay.delay_ms(300u32);
 
-        delay.delay_ms(300u32);
+     //    for i in 0..leds.iter().len() {
+     //        delay.delay_ms(_delay);
+     //        leds[i].off();
+     //    }
 
-        for i in 0..leds.iter().len() {
-            delay.delay_ms(_delay);
-            leds[i].off();
-        }
-
-        if seq_even <= 5 {
-            seq_even+=1;
-        }else {
-            if seq_odd <= 5 {
-                seq_odd+=1;
-            } else {
-                seq_even = 0;
-                seq_odd = 0;
-            }
-        }
+     //    if seq_even <= 5 {
+     //        seq_even+=1;
+     //    }else {
+     //        if seq_odd <= 5 {
+     //            seq_odd+=1;
+     //        } else {
+     //            seq_even = 0;
+     //            seq_odd = 0;
+     //        }
+     //    }
     	
     }
 }
